@@ -1,10 +1,13 @@
 "use client";
 
+import Link from "next/link";
 import { useState } from "react";
 
 export default function Page() {
   const [title, setTitle] = useState<string>("");
   const [dueDate, setDueDate] = useState<string>("");
+  const [description, setDescription] = useState<string>("");
+
   const [styleAlert, setStyleAlert] = useState<"success" | "error" | "">("");
   const [textAlert, setTextAlert] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
@@ -23,7 +26,7 @@ export default function Page() {
         headers: {
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({ title, dueDate }),
+        body: JSON.stringify({ title, dueDate, description }),
       });
       const data = await res.json();
 
@@ -55,8 +58,15 @@ export default function Page() {
         </div>
       )}
 
+      <Link
+        className="px-4 py-2 rounded-md transition border border-gray-500 hover:bg-gray-900 hover:text-white"
+        href="/"
+      >
+        Back
+      </Link>
+
       <form onSubmit={handleSubmit}>
-        <div className="flex flex-col gap-1 mb-4">
+        <div className="flex flex-col gap-1 my-4">
           <label htmlFor="todo">Todo</label>
           <input
             onChange={(e) => {
@@ -68,6 +78,22 @@ export default function Page() {
             placeholder="Add new Todo"
             value={title}
           />
+        </div>
+
+        <div className="flex flex-col gap-1 mb-4">
+          <label htmlFor="description">Description</label>
+          <textarea
+            onChange={(e) => {
+              setDescription(e.target.value);
+            }}
+            name="description"
+            className="border border-gray-900 w-full p-3 rounded-md"
+            placeholder="Add New Todo description"
+            value={description}
+            rows={5}
+          >
+            {" "}
+          </textarea>
         </div>
 
         <div className="flex flex-col gap-1 mb-4">

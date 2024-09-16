@@ -18,9 +18,13 @@ export async function PATCH(req, { params }) {
 
 export async function PUT(req, { params }) {
   const { id } = params;
-  const { title, dueDate } = await req.json();
+  const { title, dueDate, description } = await req.json();
   await connectToMongoDB();
-  const todo = await Todo.findByIdAndUpdate(id, { title, dueDate });
+  const todo = await Todo.findByIdAndUpdate(id, {
+    title,
+    dueDate,
+    description,
+  });
   return NextResponse.json({ message: "Todo Update" }, { status: 200 });
 }
 

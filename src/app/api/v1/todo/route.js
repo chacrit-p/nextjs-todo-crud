@@ -9,8 +9,12 @@ export async function GET() {
 }
 
 export async function POST(req) {
-  const { title, dueDate } = await req.json();
+  const { title, dueDate, description } = await req.json();
   await connectToMongoDB();
-  await Todo.create({ title: title, dueDate: dueDate });
+  await Todo.create({
+    title: title,
+    dueDate: dueDate,
+    description: description,
+  });
   return NextResponse.json({ message: "Todo Created" }, { status: 200 });
 }

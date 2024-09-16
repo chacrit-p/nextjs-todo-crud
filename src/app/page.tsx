@@ -7,6 +7,7 @@ import { useEffect, useState } from "react";
 interface Todo {
   _id: string;
   title: string;
+  description: string;
   completed: boolean;
   dueDate: string;
 }
@@ -89,7 +90,7 @@ export default function Home() {
       <div className="flex justify-end">
         <Link
           href="/create"
-          className=" px-4 py-2 rounded-md transition border border-gray-500 hover:bg-gray-900 hover:text-white "
+          className=" px-4 py-2 rounded-md transition border border-gray-500 hover:bg-gray-900 hover:text-white"
         >
           Add Task
         </Link>
@@ -107,8 +108,11 @@ export default function Home() {
             >
               {task.title}
             </h1>
-            <p className="mb-2 text-xs">Due Date: {formatDate(task.dueDate)}</p>
-            <div className="flex justify-betweeen gap-3">
+            <p className="mb-2 text-lg">{task.description}</p>
+            <span className=" text-xs">
+              Due Date: {formatDate(task.dueDate)}
+            </span>
+            <div className="flex justify-betweeen gap-3 mt-2">
               <button
                 onClick={() =>
                   updateComplateTodoStatus(task._id, task.completed)
